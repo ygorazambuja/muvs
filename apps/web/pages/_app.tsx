@@ -7,6 +7,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Welcome to web!</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <main className="app">
         <Component {...pageProps} />

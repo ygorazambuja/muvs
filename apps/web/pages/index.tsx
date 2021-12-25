@@ -1,5 +1,6 @@
 import { YButton } from '@muvs/ui-components';
 import axios from 'axios';
+import Head from 'next/head';
 import Image from 'next/image';
 
 type Movie = {
@@ -26,6 +27,9 @@ export function index({ movies }: Props) {
 
   return (
     <div>
+      <Head>
+        <title>Muvs - Home</title>
+      </Head>
       <YButton />
       {movies.map((movie) => {
         return (
