@@ -9,7 +9,7 @@
     "dev": "nx dev",
     "start:web": "nx serve web",
     "start:api": "nx serve api",
-    "build:web": "nx build web"
+    "build:web": "nx build web --prod"
   },
   "private": true,
   "dependencies": {
