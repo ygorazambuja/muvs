@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Movie {
+  uuid        String @id @default(cuid())
+  title       String
+  tmbdMovieId Int    @unique
+
+  adult         Boolean
+  backdrop_path String?
+
+
+  overview     String
+  popularity   Float
+  poster_path  String
+  release_date String
+  status       String
+  tagline      String
+  vote_average Float
+  vote_count   Int
+
+  movieList MoviesOnMovieList[]
+  torrents  Torrent[]
+}
+
+model MovieList {
+  uuid  String @id @default(cuid())
+  title String
+
+  movies MoviesOnMovieList[]
+
+  user     User?   @relation(fields: [userUuid], references: [uuid])
+  userUuid String?
+}
+
+model MoviesOnMovieList {
+  movie   Movie  @relation(fields: [movieId], references: [uuid])
+  movieId String
+
+  movieList   MovieList @relation(fields: [movieListId], references: [uuid])
+  movieListId String
+
+  @@id([movieId, movieListId])
+}
+
+model User {
+  uuid     String @id @default(cuid())
+  name     String
+  password String
+  email    String @unique
+  username String @unique
+
+  movieLists MovieList[]
+
+}
+
+model Torrent {
+  uuid     String @id @default(cuid())
+  title    String
+  magnet   String @unique
+  size     String
+  imdb     String
+  provider String
+
+  movie     Movie?  @relation(fields: [movieUuid], references: [uuid])
+  movieUuid String?
+}
