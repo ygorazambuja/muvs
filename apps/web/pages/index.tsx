@@ -1,4 +1,3 @@
-import { YButton } from '@muvs/ui-components';
 import axios from 'axios';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -30,27 +29,33 @@ export function index({ movies }: Props) {
       <Head>
         <title>Muvs - Home</title>
       </Head>
-      <YButton />
-      {movies.map((movie) => {
-        return (
-          <div key={movie.tmbdMovieId}>
-            <h2>{movie.title}</h2>
-            <Image
-              loading="lazy"
-              src={getImageUrl(movie.poster_path)}
-              alt={movie.title}
-              width={200}
-              height={300}
-            />
-          </div>
-        );
-      })}
+      <div
+        style={{ display: 'grid', gridTemplateColumns: '300px 300px 300px' }}
+      >
+        {movies.map((movie) => {
+          return (
+            <div
+              key={movie.tmbdMovieId}
+              style={{ display: 'flex', flexDirection: 'column' }}
+            >
+              <h2>{movie.title}</h2>
+              <Image
+                loading="lazy"
+                src={getImageUrl(movie.poster_path)}
+                alt={movie.title}
+                width={200}
+                height={300}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
 export async function getStaticProps() {
-  const { data } = await axios.get('https://api-muvs.herokuapp.com/api/movies');
+  const { data } = await axios.get('http://localhost:3333/api/movies');
 
   return {
     props: {

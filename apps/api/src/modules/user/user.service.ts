@@ -11,9 +11,9 @@ export class UserService {
 
   async signUp(createUserDto) {
     const hasUser = await this.getUserByUsername(createUserDto.username);
-    const hasEmail = await this.getUserByEmail(createUserDto.email);
-
     if (hasUser) throw new BadRequestException('User already exists');
+
+    const hasEmail = await this.getUserByEmail(createUserDto.email);
     if (hasEmail) throw new BadRequestException('Email already exists');
 
     const { username, email, password, name } = createUserDto;

@@ -1,8 +1,15 @@
-export function YButton() {
+type YButtonProps = {
+  content: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export function YButton(props: YButtonProps) {
   return (
-    <div>
-      <h1>YButton</h1>
-    </div>
+    <button
+      {...props}
+      className="h-10 px-6 font-semibold rounded-md bg-black text-white"
+    >
+      {props.content}
+    </button>
   );
 }
 
